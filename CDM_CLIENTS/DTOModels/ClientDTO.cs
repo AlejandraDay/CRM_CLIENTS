@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace CDM_CLIENTS.DTOModels
 {
-    public class Ranking
+    public class ClientDTO
     {
+        public string Name { get; set; }
     }
 }

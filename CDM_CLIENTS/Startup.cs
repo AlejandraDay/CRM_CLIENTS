@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using CDM_CLIENTS.BusinessLogic;
+using CDM_CLIENTS.Database;
 
 namespace CDM_CLIENTS
 {
@@ -25,7 +27,10 @@ namespace CDM_CLIENTS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(); 
+            services.AddTransient<IRankingLogic, RankingLogic>();
+            services.AddTransient<IClientTableDB, ClientTableDB>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
