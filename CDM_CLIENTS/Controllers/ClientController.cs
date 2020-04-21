@@ -13,12 +13,15 @@ namespace CDM_CLIENTS.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        //private readonly  _rankingLogic;
+        /*
+        private readonly  _rankingLogic;
 
-        //public ClientController(IRankingLogic rankingLogic)
-       // {
-         //   _rankingLogic = rankingLogic;
-        //}
+        public ClientController(IRankingLogic rankingLogic)
+        {
+            _rankingLogic = rankingLogic;
+        }
+        */
+
         // GET: api/Client
         [HttpGet]
         public IEnumerable<string> Get()
