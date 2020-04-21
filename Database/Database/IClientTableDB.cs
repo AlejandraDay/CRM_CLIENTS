@@ -1,11 +1,13 @@
-﻿using System;
+﻿using CDM_CLIENTS.Database.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CDM_CLIENTS.Database
 {
-    interface IClientTableDB
+    public interface IClientTableDB
     {
+        public List<Client> GetAll();
     }
 }

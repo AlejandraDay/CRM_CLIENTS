@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CDM_CLIENTS.Database
 {
-    public class ClientTableDB
+    public class ClientTableDB:IClientTableDB
     {
         public List<Client> GetAll()
         {

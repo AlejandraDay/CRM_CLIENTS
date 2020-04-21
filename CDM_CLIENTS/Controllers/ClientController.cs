@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CDM_CLIENTS.BusinessLogic;
+using CDM_CLIENTS.DTOModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,13 +13,20 @@ namespace CDM_CLIENTS.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-       
+        //private readonly  _rankingLogic;
+
+        //public ClientController(IRankingLogic rankingLogic)
+       // {
+         //   _rankingLogic = rankingLogic;
+        //}
         // GET: api/Client
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
-        }
+          //  return _rankingLogic.
+          return new string[] { "value1", "value2" };
+        
+    }
 
         // GET: api/Ranking
         [HttpGet]
