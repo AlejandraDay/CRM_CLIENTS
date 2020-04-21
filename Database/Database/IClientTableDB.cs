@@ -8,6 +8,7 @@ namespace CDM_CLIENTS.Database
 {
     public interface IClientTableDB
     {
+        public void  AddClient(Client client);
         public List<Client> GetAll();
 
     }

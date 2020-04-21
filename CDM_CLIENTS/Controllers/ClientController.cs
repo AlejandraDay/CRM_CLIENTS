@@ -37,6 +37,7 @@ namespace CDM_CLIENTS.Controllers
         [HttpPost("/api/clients")]
         public ActionResult<Client> AddProduct(string Name, string Id, string Adress, string Phone)
         {
+          //  Console.WriteLine(_service.AddClient(Name, Id, Adress, Phone).ToString());
             return _service.AddClient(Name, Id, Adress, Phone);
             
         }

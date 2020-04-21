@@ -12,9 +12,10 @@ namespace CDM_CLIENTS.BusinessLogic
 
         private List<Client> _clients;
 
-        public ClientLogic()
+        public ClientLogic(IClientTableDB clientTableDB)
         {
             _clients = new List<Client>();
+            _clientTableDB = clientTableDB;
         }
 
        /* public Client AddClient(Client Client)
@@ -35,6 +36,7 @@ namespace CDM_CLIENTS.BusinessLogic
                 Client_id = client_id, 
                 Ranking = "5"
             };
+            _clientTableDB.AddClient(client);
 
 
             return client;
@@ -55,7 +57,12 @@ namespace CDM_CLIENTS.BusinessLogic
 
         public List<Client> GetClients()
         {
-            return _clients;
+
+          //  foreach(Client objClient in _clientTableDB.GetAll())
+          //  {
+          //      Console.WriteLine(objClient.Adress, objClient.Client_id);
+          //  }
+            return _clientTableDB.GetAll();
         }
 
         public Client UpdateClient(string Client_id, Client Client)
