@@ -13,6 +13,6 @@ namespace CDM_CLIENTS.BusinessLogic
 
         public Client UpdateClient(string Client_id, Client Client);
 
-        public string DeleteClient(string Client_id);
+        public Client DeleteClient(string Client_id);
     }
 }

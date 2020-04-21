@@ -10,11 +10,11 @@ namespace CDM_CLIENTS.BusinessLogic
     {
         private readonly IClientTableDB _clientTableDB;
 
-        private List<Client> _clients;
+        //private List<Client> _clients;
 
         public ClientLogic(IClientTableDB clientTableDB)
         {
-            _clients = new List<Client>();
+            //_clients = new List<Client>();
             _clientTableDB = clientTableDB;
         }
 
@@ -34,25 +34,24 @@ namespace CDM_CLIENTS.BusinessLogic
                 Adress = adress,
                 Phone = phone,
                 Client_id = client_id, 
-                Ranking = "5"
+                Ranking = "1"
             };
             _clientTableDB.AddClient(client);
-
 
             return client;
         }
 
-        public string DeleteClient(string Client_id)
+        public Client DeleteClient(string Client_id)
         {
-            for (var i = _clients.Count - 1; i >= 0; i--)
+            /*for (var i = _clients.Count - 1; i >= 0; i--)
             {
                 if (_clients[i].Client_id == Client_id)
                 {
                     _clients.RemoveAt(i);
                 }
-            }
+            }*/
 
-            return Client_id;
+            return _clientTableDB.DeleteClient(Client_id);
         }
 
         public List<Client> GetClients()
@@ -67,15 +66,18 @@ namespace CDM_CLIENTS.BusinessLogic
 
         public Client UpdateClient(string Client_id, Client Client)
         {
-            for (var i = _clients.Count - 1; i >= 0; i--)
+            /*for (var i = _clients.Count - 1; i >= 0; i--)
             {
                 if (_clients[i].Client_id == Client_id)
                 {
                     _clients[i] = Client;
                     _clients[i].Client_id = Letras(_clients[i].Name) + "-" + _clients[i].Id;
+                    break;
                 }
-            }
-            return Client;
+            }*/
+            Client updatedClient = Client;
+            updatedClient.Client_id = Letras(Client.Name) + "-" + Client.Id;
+            return _clientTableDB.UpdateClient(Client_id, updatedClient);
         }
 
         public String Letras(String nombre)

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CDM_CLIENTS.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/clients")]
     [ApiController]
     public class ClientController : ControllerBase
     {
@@ -32,7 +32,6 @@ namespace CDM_CLIENTS.Controllers
         {
             //  Console.WriteLine(_service.AddClient(Name, Id, Adress, Phone).ToString());
             return _service.AddClient(Name, Id, Adress, Phone);
-
         }
 
         // GET (READ)
@@ -45,19 +44,17 @@ namespace CDM_CLIENTS.Controllers
        
 
         // PUT (UPDATE)
-        [HttpPut("Update ")]
-        public ActionResult<Client> UpdateProduct(string client_id, Client client)
+        [HttpPut("Update")]
+        public ActionResult<Client> UpdateProduct(string Client_id, string Name, string Id, string Adress, string Phone, string Ranking)
         {
-            _service.UpdateClient(client_id, client);
-            return client;
+            return _service.UpdateClient(Client_id, new Client() {Name=Name, Id=Id, Adress=Adress, Phone=Phone, Ranking=Ranking, Client_id=Client_id}); ;
         }
 
         // DELETE (DELETE..)
         [HttpDelete("Delete Client")]
-        public ActionResult<string> DeleteProduct(string client_id)
+        public ActionResult<Client> DeleteProduct(string Client_id)
         {
-            _service.DeleteClient(client_id);
-            return client_id;
+            return _service.DeleteClient(Client_id);
         }
     }
 }

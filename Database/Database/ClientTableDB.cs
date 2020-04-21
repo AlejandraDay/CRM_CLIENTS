@@ -20,6 +20,20 @@ namespace CDM_CLIENTS.Database
             this.clients.Add(client);
         }
 
+        public Client DeleteClient(string client_id)
+        {
+            Client clientTmp = null;
+            for (var i = clients.Count - 1; i >= 0; i--)
+            {
+                if (clients[i].Client_id == client_id)
+                {
+                    clientTmp = clients[i];
+                    clients.RemoveAt(i);   
+                }
+            }
+            return clientTmp;
+        }
+
         public List<Client> GetAll()
         {
             return clients;
@@ -31,6 +45,20 @@ namespace CDM_CLIENTS.Database
              //  new Client() { Name="Samuel Oscar Nabarro Yáñez", Id="3026982", Adress="Av. Libertadores", Phone="66320140", Ranking="5", Client_id ="SONY-3026982"},
              //  new Client() { Name="Nicholas Ignacius Klopp Espada", Id="9002563", Adress="Av. Ayacucho", Phone="73294605", Ranking="5", Client_id ="NIKE-9002563"}
             //};
+        }
+
+        public Client UpdateClient(string client_id, Client client)
+        {
+            Client clientTmp = null;
+            for (var i = clients.Count - 1; i >= 0; i--)
+            {
+                if (clients[i].Client_id == client_id)
+                {
+                    clients[i] = client;
+                    clientTmp = client;
+                }
+            }
+            return clientTmp;
         }
     }
 }
