@@ -190,3 +190,13 @@ C:\Users\Alejandra\Documents\UPB-TRABAJOS\UPB-5toSemestre\2doModulo\Certificacio
 C:\Users\Alejandra\Documents\UPB-TRABAJOS\UPB-5toSemestre\2doModulo\Certificacion1\.NETCore_VisualStudio\CRM_CLIENTS\CDM_CLIENTS\obj\Debug\netcoreapp3.1\CDM_CLIENTS.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Alejandra\Documents\UPB-TRABAJOS\UPB-5toSemestre\2doModulo\Certificacion1\.NETCore_VisualStudio\CRM_CLIENTS\CDM_CLIENTS\obj\Debug\netcoreapp3.1\CDM_CLIENTS.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Alejandra\Documents\UPB-TRABAJOS\UPB-5toSemestre\2doModulo\Certificacion1\.NETCore_VisualStudio\CRM_CLIENTS\CDM_CLIENTS\obj\Debug\netcoreapp3.1\CDM_CLIENTS.csprojAssemblyReference.cache
+D:\UPB\2doparcial\CRM_CLIENTS\CDM_CLIENTS\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+D:\UPB\2doparcial\CRM_CLIENTS\CDM_CLIENTS\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+D:\UPB\2doparcial\CRM_CLIENTS\CDM_CLIENTS\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\UPB\2doparcial\CRM_CLIENTS\CDM_CLIENTS\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\UPB\2doparcial\CRM_CLIENTS\CDM_CLIENTS\bin\Debug\netcoreapp3.1\BusinessLogic.dll
+D:\UPB\2doparcial\CRM_CLIENTS\CDM_CLIENTS\bin\Debug\netcoreapp3.1\Database.dll
+D:\UPB\2doparcial\CRM_CLIENTS\CDM_CLIENTS\bin\Debug\netcoreapp3.1\BusinessLogic.pdb
+D:\UPB\2doparcial\CRM_CLIENTS\CDM_CLIENTS\bin\Debug\netcoreapp3.1\Database.pdb
+D:\UPB\2doparcial\CRM_CLIENTS\CDM_CLIENTS\obj\Debug\netcoreapp3.1\CDM_CLIENTS.csprojAssemblyReference.cache
+D:\UPB\2doparcial\CRM_CLIENTS\CDM_CLIENTS\obj\Debug\netcoreapp3.1\CDM_CLIENTS.MvcApplicationPartsAssemblyInfo.cs

@@ -13,41 +13,37 @@ namespace CDM_CLIENTS.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        //private readonly  _rankingLogic;
+        
+        private readonly  IRankingLogic _clientsLogic; //Requiere modificacion para que sean listas de clientes 
 
-        //public ClientController(IRankingLogic rankingLogic)
-       // {
-         //   _rankingLogic = rankingLogic;
-        //}
-        // GET: api/Client
+        public ClientController(IRankingLogic clienteLogic)
+        {
+            _clientsLogic = clienteLogic;
+        }
+        
+
+        // GET: api/Client //Read
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<RankingDTO> GetAll()
         {
           //  return _rankingLogic.
-          return new string[] { "value1", "value2" };
-        
-    }
-
-        // GET: api/Ranking
-        [HttpGet]
-        public IEnumerable<string> GetAll()
-        {
-            return new string[] { "value1", "value2" };
+          return _clientsLogic.GetRankingsCERTClass();
         }
 
-        // POST: api/Client
+
+        // POST: api/Client //update (if i'm not wrong)
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/Client/5
+        // PUT: api/Client/5 //create (if i'm not wrong)
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

@@ -12,3 +12,10 @@
  -Y 5 es un cliente que compra constantemente
  -Código de cliente (autogenerado, único) =&gt; Client-Id
  -Se debe formar en base a las iniciales del primer nombre/apellidos y la cédula,
+
+# Task A
+
+-Reutilización del ejemplo con fines de formato
+-Separación en class libraries
+-Añadir swagger básico
+

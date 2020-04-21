@@ -8,7 +8,6 @@ namespace CDM_CLIENTS.BusinessLogic
 {
     public interface IRankingLogic
     {
-        public List<RankingDTO> GetRanking();
-
+        public List<RankingDTO> GetRankingsCERTClass();
     }
 }
