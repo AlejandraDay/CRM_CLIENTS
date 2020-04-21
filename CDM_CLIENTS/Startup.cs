@@ -27,7 +27,8 @@ namespace CDM_CLIENTS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(); 
+            services.AddControllers();
+            services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<IRankingLogic, RankingLogic>();
             services.AddTransient<IClientTableDB, ClientTableDB>();
 
@@ -38,7 +39,7 @@ namespace CDM_CLIENTS
                     "v1",
                     new Microsoft.OpenApi.Models.OpenApiInfo()
                     {
-                        Title = "Group Selector API - DEV/QA",
+                        Title = "CRM_Clients API - DEV/QA",
                         Version = "v1"
                     }
                 );
@@ -53,7 +54,7 @@ namespace CDM_CLIENTS
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

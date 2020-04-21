@@ -7,6 +7,6 @@ namespace CDM_CLIENTS.DTOModels
 {
     public class ClientDTO
     {
-        public string Name { get; set; }
+        public string Client_id { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using CDM_CLIENTS.DTOModels;
 
 namespace CDM_CLIENTS.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/rankings")]
     [ApiController]
     public class RankingController : ControllerBase
     {
@@ -28,11 +28,11 @@ namespace CDM_CLIENTS.Controllers
         public IEnumerable<RankingDTO> GetAll()
         {
             //  return _rankingLogic.
-            return _rankingLogic.GetRankingsCERTClass();
+            return _rankingLogic.GetRankings();
         }
 
 
-
+        /*
 
         // GET: api/Ranking/5
         [HttpGet("{id}", Name = "Get")]
@@ -58,5 +58,6 @@ namespace CDM_CLIENTS.Controllers
         public void Delete(int id)
         {
         }
+        */
     }
 }

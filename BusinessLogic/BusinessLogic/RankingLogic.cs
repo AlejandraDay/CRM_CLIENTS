@@ -12,25 +12,23 @@ namespace CDM_CLIENTS.BusinessLogic
     {
         private readonly IClientTableDB _clientTableDB;
 
-        public RankingLogic(IClientTableDB studentTableDB)
+        public RankingLogic(IClientTableDB clientTableDB)
         {
-            _clientTableDB = studentTableDB;
+            _clientTableDB = clientTableDB;
         }
 
-        public List<RankingDTO> GetRankingsCERTClass()
+        public List<RankingDTO> GetRankings()
         {
             // Retrieve all clients from database
             List<Client> allClients = _clientTableDB.GetAll();
 
             List<RankingDTO> rankingToAssign = GetEmptyRankings();
 
-            List<Client> unOrderClientList = allClients.OrderBy(client => new Random().Next()).ToList();
             // Process all clients
-            foreach (Client client in unOrderClientList)
+            foreach (Client client in allClients)
             {
-                // Student choose a Ranking
-                int rankingNumber = GetARankingNumber();
-                assignToRanking(rankingNumber, rankingToAssign, client);
+                // Asign Cient to a Group
+                assignToRanking(rankingToAssign, client);
             }
 
             return rankingToAssign;
@@ -40,33 +38,22 @@ namespace CDM_CLIENTS.BusinessLogic
         {
             List<RankingDTO> emptyRankings = new List<RankingDTO>()
             {
-                new RankingDTO() {RankingName="Grupo 1", Clients=new List<ClientDTO>(), MaxNumberOfRanks=4 },
-                new RankingDTO() {RankingName="Grupo 2", Clients=new List<ClientDTO>(), MaxNumberOfRanks=4 },
-                new RankingDTO() {RankingName="Grupo 3", Clients=new List<ClientDTO>(), MaxNumberOfRanks=4 },
-                new RankingDTO() {RankingName="Grupo 4", Clients=new List<ClientDTO>(), MaxNumberOfRanks=5 },
-                new RankingDTO() {RankingName="Grupo 5", Clients=new List<ClientDTO>(), MaxNumberOfRanks=5 },
+                new RankingDTO() {RankingName="Ranking 1", Clients=new List<ClientDTO>(), MaxNumberOfClients=100 },
+                new RankingDTO() {RankingName="Ranking 2", Clients=new List<ClientDTO>(), MaxNumberOfClients=100 },
+                new RankingDTO() {RankingName="Ranking 3", Clients=new List<ClientDTO>(), MaxNumberOfClients=100 },
+                new RankingDTO() {RankingName="Ranking 4", Clients=new List<ClientDTO>(), MaxNumberOfClients=100 },
+                new RankingDTO() {RankingName="Ranking 5", Clients=new List<ClientDTO>(), MaxNumberOfClients=100 },
             };
             return emptyRankings;
         }
 
-        private int GetARankingNumber()
+        private void assignToRanking(List<RankingDTO> RankingsToAssign, Client client)
         {
-            return new Random().Next(1, 6);
-        }
+            RankingDTO RankingToAssign = RankingsToAssign.Find(Ranking => Ranking.RankingName.Contains(client.Ranking));
 
-        private void assignToRanking(int RankingNumber, List<RankingDTO> RankingsToAssign, Client client)
-        {
-            RankingDTO RankingToAssign = RankingsToAssign.Find(Ranking => Ranking.RankingName.Contains(RankingNumber.ToString()));
-
-            if (RankingToAssign != null && RankingToAssign.Clients.Count < RankingToAssign.MaxNumberOfRanks)
+            if (RankingToAssign != null && RankingToAssign.Clients.Count < RankingToAssign.MaxNumberOfClients)
             {
-                RankingToAssign.Clients.Add(new ClientDTO() { Name = client.Name });
-                return;
-            }
-            else
-            {
-                int newRankingNumber = GetARankingNumber();
-                assignToRanking(newRankingNumber, RankingsToAssign, client);
+                RankingToAssign.Clients.Add(new ClientDTO() { Client_id = client.Client_id });
             }
         }
     }

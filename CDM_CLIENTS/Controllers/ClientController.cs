@@ -3,34 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CDM_CLIENTS.BusinessLogic;
+using CDM_CLIENTS.Database.Models;
 using CDM_CLIENTS.DTOModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CDM_CLIENTS.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/clients")]
     [ApiController]
     public class ClientController : ControllerBase
     {
         
-        private readonly  IRankingLogic _clientsLogic; //Requiere modificacion para que sean listas de clientes 
+        private readonly  IClientLogic _clientLogic;
 
-        public ClientController(IRankingLogic clienteLogic)
+        public ClientController(IClientLogic clientLogic)
         {
-            _clientsLogic = clienteLogic;
+            _clientLogic = clientLogic;
         }
         
 
         // GET: api/Client //Read
         [HttpGet]
-        public IEnumerable<RankingDTO> GetAll()
+        public IEnumerable<Client> GetAll()
         {
           //  return _rankingLogic.
-          return _clientsLogic.GetRankingsCERTClass();
+          return _clientLogic.GetClients();
         }
 
-
+        /*
         // POST: api/Client //update (if i'm not wrong)
         [HttpPost]
         public void Post([FromBody] string value)
@@ -48,5 +49,6 @@ namespace CDM_CLIENTS.Controllers
         public void Delete(int id)
         {
         }
+        */
     }
 }

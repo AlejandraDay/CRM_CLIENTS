@@ -8,10 +8,9 @@ namespace CDM_CLIENTS.DTOModels
     public class RankingDTO
     {   
         public string RankingName { get; set; }
-        // "John Smith", "Paul", ......
-        public List<ClientDTO> Clients { get; set; }
-        //getStudents / setStudents
 
-        public int MaxNumberOfRanks { get; set; }
+        public List<ClientDTO> Clients { get; set; }
+
+        public int MaxNumberOfClients { get; set; }
     }
 }
