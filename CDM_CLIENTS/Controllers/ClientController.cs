@@ -26,24 +26,26 @@ namespace CDM_CLIENTS.Controllers
 
         }
 
+        // POST (CREATE)
+        [HttpPost("Register Client")]
+        public ActionResult<Client> AddProduct(string Name, string Id, string Adress, string Phone)
+        {
+            //  Console.WriteLine(_service.AddClient(Name, Id, Adress, Phone).ToString());
+            return _service.AddClient(Name, Id, Adress, Phone);
+
+        }
+
         // GET (READ)
-        [HttpGet("/api/clients")]
+        [HttpGet("Client List")]
         public ActionResult<List<Client>> GetClients()
         {
             return _service.GetClients();
         }
 
-        // POST (CREATE)
-        [HttpPost("/api/clients")]
-        public ActionResult<Client> AddProduct(string Name, string Id, string Adress, string Phone)
-        {
-          //  Console.WriteLine(_service.AddClient(Name, Id, Adress, Phone).ToString());
-            return _service.AddClient(Name, Id, Adress, Phone);
-            
-        }
+       
 
         // PUT (UPDATE)
-        [HttpPut("/api/clients/{client_id}")]
+        [HttpPut("Update ")]
         public ActionResult<Client> UpdateProduct(string client_id, Client client)
         {
             _service.UpdateClient(client_id, client);
@@ -51,7 +53,7 @@ namespace CDM_CLIENTS.Controllers
         }
 
         // DELETE (DELETE..)
-        [HttpDelete("/api/clients/{client_id}")]
+        [HttpDelete("Delete Client")]
         public ActionResult<string> DeleteProduct(string client_id)
         {
             _service.DeleteClient(client_id);

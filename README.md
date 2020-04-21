@@ -19,3 +19,5 @@
 -Separación en class libraries
 -Añadir swagger básico
 
+#Task AA
+- Implementación de "Create" y "Read" de clientes desde la página web
