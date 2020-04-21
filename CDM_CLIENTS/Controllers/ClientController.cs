@@ -35,10 +35,10 @@ namespace CDM_CLIENTS.Controllers
 
         // POST (CREATE)
         [HttpPost("/api/clients")]
-        public ActionResult<Client> AddProduct(Client client)
+        public ActionResult<Client> AddProduct(string Name, string Id, string Adress, string Phone)
         {
-            _service.AddClient(client);
-            return client;
+            return _service.AddClient(Name, Id, Adress, Phone);
+            
         }
 
         // PUT (UPDATE)

@@ -17,11 +17,27 @@ namespace CDM_CLIENTS.BusinessLogic
             _clients = new List<Client>();
         }
 
-        public Client AddClient(Client Client)
+       /* public Client AddClient(Client Client)
         {
             Client.Client_id = Letras(Client.Name) + "-" + Client.Id;
             _clients.Add(Client);
             return Client;
+        }*/
+        public Client AddClient(string name, string id, string adress, string phone)
+        {
+            string client_id = Letras(name) + "-" + id;
+
+            Client client = new Client()
+            {
+                Name = name, Id = id,
+                Adress = adress,
+                Phone = phone,
+                Client_id = client_id, 
+                Ranking = "5"
+            };
+
+
+            return client;
         }
 
         public string DeleteClient(string Client_id)
