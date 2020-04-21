@@ -6,49 +6,55 @@ using CDM_CLIENTS.BusinessLogic;
 using CDM_CLIENTS.Database.Models;
 using CDM_CLIENTS.DTOModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CDM_CLIENTS.Controllers
 {
-    [Route("api/clients")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase
     {
-        
-        private readonly  IClientLogic _clientLogic;
+        private ILogger _logger;
+        private IClientLogic _service;
 
-        public ClientController(IClientLogic clientLogic)
-        {
-            _clientLogic = clientLogic;
-        }
-        
 
-        // GET: api/Client //Read
-        [HttpGet]
-        public IEnumerable<Client> GetAll()
+        public ClientController(ILogger<ClientController> logger, IClientLogic service)
         {
-          //  return _rankingLogic.
-          return _clientLogic.GetClients();
+            _logger = logger;
+            _service = service;
+
         }
 
-        /*
-        // POST: api/Client //update (if i'm not wrong)
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // GET (READ)
+        [HttpGet("/api/clients")]
+        public ActionResult<List<Client>> GetClients()
         {
+            return _service.GetClients();
         }
 
-        // PUT: api/Client/5 //create (if i'm not wrong)
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // POST (CREATE)
+        [HttpPost("/api/clients")]
+        public ActionResult<Client> AddProduct(Client client)
         {
+            _service.AddClient(client);
+            return client;
         }
 
-        // DELETE: 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // PUT (UPDATE)
+        [HttpPut("/api/clients/{client_id}")]
+        public ActionResult<Client> UpdateProduct(string client_id, Client client)
         {
+            _service.UpdateClient(client_id, client);
+            return client;
         }
-        */
+
+        // DELETE (DELETE..)
+        [HttpDelete("/api/clients/{client_id}")]
+        public ActionResult<string> DeleteProduct(string client_id)
+        {
+            _service.DeleteClient(client_id);
+            return client_id;
+        }
     }
 }

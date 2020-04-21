@@ -28,7 +28,7 @@ namespace CDM_CLIENTS
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IClientLogic, ClientLogic>();
+            services.AddSingleton<IClientLogic, ClientLogic>();
             services.AddTransient<IRankingLogic, RankingLogic>();
             services.AddTransient<IClientTableDB, ClientTableDB>();
 
