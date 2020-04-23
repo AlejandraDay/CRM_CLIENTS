@@ -1,4 +1,5 @@
 ﻿using CDM_CLIENTS.Database.Models;
+using CDM_CLIENTS.DTOModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,12 +8,9 @@ namespace CDM_CLIENTS.BusinessLogic
 {
     public interface IClientLogic
     {
+        public Client AddClient(ClientDTO newClient);
         public List<Client> GetClients();
-
-        public Client AddClient(string name, string id, string adress, string phone);
-
-        public Client UpdateClient(string Client_id, Client Client);
-
-        public Client DeleteClient(string Client_id);
+        public Client UpdateClient(string client_id, ClientDTO clientToUpdate);
+        public Client DeleteClient(string client_id);
     }
 }

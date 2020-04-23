@@ -11,6 +11,6 @@ namespace CDM_CLIENTS.DTOModels
         public String Id { get; set; }
         public String Adress { get; set; }
         public String Phone { get; set; }
-        public String Client_id { get; set; }
+        public String Ranking { get; set; }
     }
 }

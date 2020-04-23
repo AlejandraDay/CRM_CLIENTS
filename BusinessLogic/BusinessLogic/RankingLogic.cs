@@ -1,10 +1,10 @@
-﻿using CDM_CLIENTS.DTOModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CDM_CLIENTS.Database;
 using CDM_CLIENTS.Database.Models;
+using CDM_CLIENTS.DTOModels;
 
 namespace CDM_CLIENTS.BusinessLogic
 {
@@ -22,16 +22,16 @@ namespace CDM_CLIENTS.BusinessLogic
             // Retrieve all clients from database
             List<Client> allClients = _clientTableDB.GetAll();
 
-            List<RankingDTO> rankingToAssign = GetEmptyRankings();
+            List<RankingDTO> rankingsToAssign = GetEmptyRankings();
 
             // Process all clients
             foreach (Client client in allClients)
             {
                 // Asign Cient to a Group
-                assignToRanking(rankingToAssign, client);
+                assignToRanking(rankingsToAssign, client);
             }
 
-            return rankingToAssign;
+            return rankingsToAssign;
         }
 
         private List<RankingDTO> GetEmptyRankings()
@@ -47,13 +47,20 @@ namespace CDM_CLIENTS.BusinessLogic
             return emptyRankings;
         }
 
-        private void assignToRanking(List<RankingDTO> RankingsToAssign, Client client)
+        private void assignToRanking(List<RankingDTO> rankingsToAssign, Client client)
         {
-            RankingDTO RankingToAssign = RankingsToAssign.Find(Ranking => Ranking.RankingName.Contains(client.Ranking));
+            RankingDTO RankingToAssign = rankingsToAssign.Find(Ranking => Ranking.RankingName.Contains(client.Ranking));
 
             if (RankingToAssign != null && RankingToAssign.Clients.Count < RankingToAssign.MaxNumberOfClients)
             {
-                RankingToAssign.Clients.Add(new ClientDTO() { Client_id = client.Client_id });
+                RankingToAssign.Clients.Add(new ClientDTO()
+                {
+                    Name = client.Name,
+                    Id = client.Id,
+                    Adress = client.Adress,
+                    Phone = client.Phone,
+                    Ranking = client.Ranking
+                });
             }
         }
     }

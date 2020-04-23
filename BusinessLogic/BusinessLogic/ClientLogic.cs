@@ -1,5 +1,6 @@
 ﻿using CDM_CLIENTS.Database;
 using CDM_CLIENTS.Database.Models;
+using CDM_CLIENTS.DTOModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,74 +11,49 @@ namespace CDM_CLIENTS.BusinessLogic
     {
         private readonly IClientTableDB _clientTableDB;
 
-        //private List<Client> _clients;
-
         public ClientLogic(IClientTableDB clientTableDB)
         {
-            //_clients = new List<Client>();
             _clientTableDB = clientTableDB;
         }
 
-       /* public Client AddClient(Client Client)
+        public Client AddClient(ClientDTO newClient)
         {
-            Client.Client_id = Letras(Client.Name) + "-" + Client.Id;
-            _clients.Add(Client);
-            return Client;
-        }*/
-        public Client AddClient(string name, string id, string adress, string phone)
-        {
-            string client_id = Letras(name) + "-" + id;
-
             Client client = new Client()
             {
-                Name = name, Id = id,
-                Adress = adress,
-                Phone = phone,
-                Client_id = client_id, 
-                Ranking = "1"
+                Name = newClient.Name, 
+                Id = newClient.Id,
+                Adress = newClient.Adress,
+                Phone = newClient.Phone,
+                Ranking = newClient.Ranking,
+                Client_id = Letras(newClient.Name) + "-" + newClient.Id
             };
             _clientTableDB.AddClient(client);
 
             return client;
         }
 
-        public Client DeleteClient(string Client_id)
-        {
-            /*for (var i = _clients.Count - 1; i >= 0; i--)
-            {
-                if (_clients[i].Client_id == Client_id)
-                {
-                    _clients.RemoveAt(i);
-                }
-            }*/
-
-            return _clientTableDB.DeleteClient(Client_id);
-        }
-
         public List<Client> GetClients()
         {
-
-          //  foreach(Client objClient in _clientTableDB.GetAll())
-          //  {
-          //      Console.WriteLine(objClient.Adress, objClient.Client_id);
-          //  }
             return _clientTableDB.GetAll();
         }
 
-        public Client UpdateClient(string Client_id, Client Client)
+        public Client UpdateClient(string client_id, ClientDTO clientToUpdate)
         {
-            /*for (var i = _clients.Count - 1; i >= 0; i--)
+            Client client = new Client()
             {
-                if (_clients[i].Client_id == Client_id)
-                {
-                    _clients[i] = Client;
-                    _clients[i].Client_id = Letras(_clients[i].Name) + "-" + _clients[i].Id;
-                    break;
-                }
-            }*/
-            Client updatedClient = Client;
-            updatedClient.Client_id = Letras(Client.Name) + "-" + Client.Id;
-            return _clientTableDB.UpdateClient(Client_id, updatedClient);
+                Name = clientToUpdate.Name,
+                Id = clientToUpdate.Id,
+                Adress = clientToUpdate.Adress,
+                Phone = clientToUpdate.Phone,
+                Ranking = clientToUpdate.Ranking,
+                Client_id = Letras(clientToUpdate.Name) + "-" + clientToUpdate.Id
+            };
+            return _clientTableDB.UpdateClient(client_id, client);
+        }
+
+        public Client DeleteClient(string client_id)
+        {
+            return _clientTableDB.DeleteClient(client_id);
         }
 
         public String Letras(String nombre)
