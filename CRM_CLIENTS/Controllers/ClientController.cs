@@ -8,6 +8,7 @@ using CDM_CLIENTS.DTOModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace CDM_CLIENTS.Controllers
 {
@@ -17,26 +18,33 @@ namespace CDM_CLIENTS.Controllers
     {
         private ILogger _logger;
         private readonly IClientLogic _clientLogic;
+        private readonly IConfiguration _configuration;
 
-
-        public ClientController(ILogger<ClientController> logger, IClientLogic clientLogic)
+        public ClientController(ILogger<ClientController> logger, IClientLogic clientLogic, IConfiguration config)
         {
             _logger = logger;
             _clientLogic = clientLogic;
+            _configuration = config;
         }
 
         // POST (CREATE)
         [HttpPost]
         [Route("clients")]
-        public ActionResult<Client> AddProduct([FromBody]ClientDTO newClient)
+        public ActionResult<ClientDTO> AddProduct([FromBody]ClientDTO newClientdto)
         {
-            return _clientLogic.AddClient(newClient);
+            ClientDTO newClient = _clientLogic.AddNewClient(newClientdto);
+
+            var dbServer = _configuration.GetSection("Database").GetSection("ConnectionString");
+
+            newClient.Name = $"{newClient.Name} data from {dbServer.Value}";
+
+            return newClient;
         }
 
         // GET (READ)
         [HttpGet]
         [Route("clients")]
-        public ActionResult<List<Client>> GetClients()
+        public ActionResult<List<ClientDTO>> GetClients()
         {
             return _clientLogic.GetClients();
         }

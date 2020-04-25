@@ -8,7 +8,7 @@ namespace CDM_CLIENTS.Database
 {
     public interface IClientTableDB
     {
-        public void AddClient(Client newClient);
+        public Client AddNewClient(Client newClient);
         public List<Client> GetAll();
         public Client UpdateClient(string client_id, Client clientToUpdate);
         public Client DeleteClient(string client_id);

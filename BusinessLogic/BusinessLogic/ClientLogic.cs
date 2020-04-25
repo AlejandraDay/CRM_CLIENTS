@@ -15,7 +15,7 @@ namespace CDM_CLIENTS.BusinessLogic
         {
             _clientTableDB = clientTableDB;
         }
-
+        /*
         public Client AddClient(ClientDTO newClient)
         {
             Client client = new Client()
@@ -27,14 +27,58 @@ namespace CDM_CLIENTS.BusinessLogic
                 Ranking = newClient.Ranking,
                 Client_id = Letras(newClient.Name) + "-" + newClient.Id
             };
-            _clientTableDB.AddClient(client);
+            _clientTableDB.AddNewClient(client);
 
             return client;
         }
-
-        public List<Client> GetClients()
+        */
+        public ClientDTO AddNewClient(ClientDTO newClient)
         {
-            return _clientTableDB.GetAll();
+            // Mappers => function: client.FromDTOtoEntity
+            Client client = new Client()
+            {
+                Name = newClient.Name,
+                Id = newClient.Id,
+                Adress = newClient.Adress,
+                Phone = newClient.Phone,
+                Ranking = newClient.Ranking,
+                Client_id = Letras(newClient.Name) + "-" + newClient.Id
+            };
+
+            // Add to DB
+            Client clientInDB = _clientTableDB.AddNewClient(client);
+
+            // Mappers => function: client.FromEntityToDTO
+            return new ClientDTO()
+            {
+                Name = client.Name,
+                Id = client.Id,
+                Adress = client.Adress,
+                Phone = client.Phone,
+                Ranking = client.Ranking,
+            };
+        }
+        public List<ClientDTO> GetClients()
+        {
+            //return _clientTableDB.GetAll();
+            List<Client> allClients = _clientTableDB.GetAll();
+            List<ClientDTO> clientsdto = new List<ClientDTO>();
+
+            // Mappers
+            foreach (Client client in allClients)
+            {
+                clientsdto.Add(
+                    new ClientDTO()
+                    {
+                        Name = client.Name,
+                        Id = client.Id,
+                        Adress = client.Adress,
+                        Phone = client.Phone,
+                        Ranking = client.Ranking,
+                    }
+                );
+            }
+            return clientsdto;
         }
 
         public Client UpdateClient(string client_id, ClientDTO clientToUpdate)
