@@ -56,7 +56,7 @@ namespace CDM_CLIENTS.BusinessLogic
                 RankingToAssign.Clients.Add(new ClientDTO()
                 {
                     Name = client.Name,
-                    Id = client.Id,
+                    Ci = client.Ci,
                     Adress = client.Adress,
                     Phone = client.Phone,
                     Ranking = client.Ranking

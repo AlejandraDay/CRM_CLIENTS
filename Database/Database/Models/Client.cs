@@ -8,10 +8,10 @@ namespace CDM_CLIENTS.Database.Models
     public class Client
     {
         public String Name { get; set; }
-        public String Id { get; set; }
+        public String Ci { get; set; }
         public String Adress { get; set; }
         public String Phone { get; set; }
         public String Ranking { get; set; }
-        public String Client_id { get; set; }
+        public String Code { get; set; }
     }
 }

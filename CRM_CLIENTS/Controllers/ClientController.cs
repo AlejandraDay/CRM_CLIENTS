@@ -53,18 +53,18 @@ namespace CDM_CLIENTS.Controllers
 
         // PUT (UPDATE)
         [HttpPut]
-        [Route("clients/{client_id}")]
-        public ActionResult<Client> UpdateProduct(string client_id, [FromBody]ClientDTO clientToUpdate)
+        [Route("clients/{code}")]
+        public ActionResult<Client> UpdateProduct(string code, [FromBody]ClientDTO clientToUpdate)
         {
-            return _clientLogic.UpdateClient(client_id, clientToUpdate);
+            return _clientLogic.UpdateClient(code, clientToUpdate);
         }
 
         // DELETE (DELETE)
         [HttpDelete]
-        [Route("clients/{client_id}")]
-        public ActionResult<Client> DeleteProduct(string client_id)
+        [Route("clients/{code}")]
+        public ActionResult<Client> DeleteProduct(string code)
         {
-            return _clientLogic.DeleteClient(client_id);
+            return _clientLogic.DeleteClient(code);
         }
     }
 }

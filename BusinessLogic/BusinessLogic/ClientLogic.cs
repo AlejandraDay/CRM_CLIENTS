@@ -38,11 +38,11 @@ namespace CDM_CLIENTS.BusinessLogic
             Client client = new Client()
             {
                 Name = newClient.Name,
-                Id = newClient.Id,
+                Ci = newClient.Ci,
                 Adress = newClient.Adress,
                 Phone = newClient.Phone,
                 Ranking = newClient.Ranking,
-                Client_id = Letras(newClient.Name) + "-" + newClient.Id
+                Code = Letras(newClient.Name) + "-" + newClient.Ci
             };
 
             // Add to DB
@@ -52,7 +52,7 @@ namespace CDM_CLIENTS.BusinessLogic
             return new ClientDTO()
             {
                 Name = client.Name,
-                Id = client.Id,
+                Ci = client.Ci,
                 Adress = client.Adress,
                 Phone = client.Phone,
                 Ranking = client.Ranking,
@@ -71,7 +71,7 @@ namespace CDM_CLIENTS.BusinessLogic
                     new ClientDTO()
                     {
                         Name = client.Name,
-                        Id = client.Id,
+                        Ci = client.Ci,
                         Adress = client.Adress,
                         Phone = client.Phone,
                         Ranking = client.Ranking,
@@ -86,11 +86,11 @@ namespace CDM_CLIENTS.BusinessLogic
             Client client = new Client()
             {
                 Name = clientToUpdate.Name,
-                Id = clientToUpdate.Id,
+                Ci = clientToUpdate.Ci,
                 Adress = clientToUpdate.Adress,
                 Phone = clientToUpdate.Phone,
                 Ranking = clientToUpdate.Ranking,
-                Client_id = Letras(clientToUpdate.Name) + "-" + clientToUpdate.Id
+                Code = Letras(clientToUpdate.Name) + "-" + clientToUpdate.Ci
             };
             return _clientTableDB.UpdateClient(client_id, client);
         }

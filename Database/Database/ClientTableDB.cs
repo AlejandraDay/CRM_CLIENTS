@@ -32,7 +32,7 @@ namespace CDM_CLIENTS.Database
             Client client = null;
             for (int i = 0; i < Clients.Count; i++)
             {
-                if (Clients[i].Client_id == client_id)
+                if (Clients[i].Code == client_id)
                 {
                     Clients[i] = clientToUpdate;
                     client = clientToUpdate;
@@ -46,7 +46,7 @@ namespace CDM_CLIENTS.Database
             Client client = null;
             for (int i = 0; i < Clients.Count; i++)
             {
-                if (Clients[i].Client_id == client_id)
+                if (Clients[i].Code == client_id)
                 {
                     client = Clients[i];
                     Clients.RemoveAt(i);   
