@@ -30,13 +30,13 @@ namespace CDM_CLIENTS.Controllers
         // POST (CREATE)
         [HttpPost]
         [Route("clients")]
-        public ActionResult<ClientDTO> AddProduct([FromBody]ClientDTO newClientdto)
+        public ActionResult<Client> AddProduct([FromBody]ClientDTO newClientdto)
         {
-            ClientDTO newClient = _clientLogic.AddNewClient(newClientdto);
+            Client newClient = _clientLogic.AddNewClient(newClientdto);
 
             var dbServer = _configuration.GetSection("Database").GetSection("ConnectionString");
 
-            newClient.Name = $"{newClient.Name} data from {dbServer.Value}";
+            newClient.Name = $"{newClient.Name} <- data from {dbServer.Value}";
 
             return newClient;
         }
@@ -44,7 +44,7 @@ namespace CDM_CLIENTS.Controllers
         // GET (READ)
         [HttpGet]
         [Route("clients")]
-        public ActionResult<List<ClientDTO>> GetClients()
+        public ActionResult<List<Client>> GetClients()
         {
             return _clientLogic.GetClients();
         }

@@ -15,24 +15,8 @@ namespace CDM_CLIENTS.BusinessLogic
         {
             _clientTableDB = clientTableDB;
         }
-        /*
-        public Client AddClient(ClientDTO newClient)
-        {
-            Client client = new Client()
-            {
-                Name = newClient.Name, 
-                Id = newClient.Id,
-                Adress = newClient.Adress,
-                Phone = newClient.Phone,
-                Ranking = newClient.Ranking,
-                Client_id = Letras(newClient.Name) + "-" + newClient.Id
-            };
-            _clientTableDB.AddNewClient(client);
 
-            return client;
-        }
-        */
-        public ClientDTO AddNewClient(ClientDTO newClient)
+        public Client AddNewClient(ClientDTO newClient)
         {
             // Mappers => function: client.FromDTOtoEntity
             Client client = new Client()
@@ -46,42 +30,16 @@ namespace CDM_CLIENTS.BusinessLogic
             };
 
             // Add to DB
-            Client clientInDB = _clientTableDB.AddNewClient(client);
-
-            // Mappers => function: client.FromEntityToDTO
-            return new ClientDTO()
-            {
-                Name = client.Name,
-                Ci = client.Ci,
-                Adress = client.Adress,
-                Phone = client.Phone,
-                Ranking = client.Ranking,
-            };
+            return _clientTableDB.AddNewClient(client);
         }
-        public List<ClientDTO> GetClients()
+
+        public List<Client> GetClients()
         {
             //return _clientTableDB.GetAll();
-            List<Client> allClients = _clientTableDB.GetAll();
-            List<ClientDTO> clientsdto = new List<ClientDTO>();
-
-            // Mappers
-            foreach (Client client in allClients)
-            {
-                clientsdto.Add(
-                    new ClientDTO()
-                    {
-                        Name = client.Name,
-                        Ci = client.Ci,
-                        Adress = client.Adress,
-                        Phone = client.Phone,
-                        Ranking = client.Ranking,
-                    }
-                );
-            }
-            return clientsdto;
+            return _clientTableDB.GetAll();
         }
 
-        public Client UpdateClient(string client_id, ClientDTO clientToUpdate)
+        public Client UpdateClient(string code, ClientDTO clientToUpdate)
         {
             Client client = new Client()
             {
@@ -92,24 +50,24 @@ namespace CDM_CLIENTS.BusinessLogic
                 Ranking = clientToUpdate.Ranking,
                 Code = Letras(clientToUpdate.Name) + "-" + clientToUpdate.Ci
             };
-            return _clientTableDB.UpdateClient(client_id, client);
+            return _clientTableDB.UpdateClient(code, client);
         }
 
-        public Client DeleteClient(string client_id)
+        public Client DeleteClient(string code)
         {
-            return _clientTableDB.DeleteClient(client_id);
+            return _clientTableDB.DeleteClient(code);
         }
 
-        public String Letras(String nombre)
+        public string Letras(string nombre)
         {
-            String Letras = "";
+            string Letras = "";
             char[] Cut = new char[nombre.Length];
 
             Cut = nombre.ToCharArray();
 
             foreach (char c in Cut)
             {
-                if (Char.IsUpper(c))
+                if (char.IsUpper(c))
                 {
                     Letras = Letras + c;
                 }

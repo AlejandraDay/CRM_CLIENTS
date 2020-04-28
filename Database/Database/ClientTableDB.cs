@@ -24,15 +24,14 @@ namespace CDM_CLIENTS.Database
         public List<Client> GetAll()
         {
             return Clients;
-            /*{new Client() { Name = "Juan Manuel Martinez Rojas", Id = "600541", Adress = "Av. América", Phone = "65494012", Ranking = "1", Client_id = "JMMR-600541" },new Client() { Name = "Rocio María Flores Rios", Id = "5315406", Adress = "Av. Circunvalación", Phone = "78690019", Ranking = "2", Client_id = "RMFR-5315406" },new Client() { Name = "Bianca Mercedes Siles Céspedes", Id = "831648", Adress = "Av. Meclchor Urquidi", Phone = "73654200", Ranking = "2", Client_id = "BMSC-831648" },new Client() { Name = "Samuel Oscar Nabarro Yáñez", Id = "3026982", Adress = "Av. Libertadores", Phone = "66320140", Ranking = "5", Client_id = "SONY-3026982" },new Client() { Name = "Nicholas Ignacius Klopp Espada", Id = "9002563", Adress = "Av. Ayacucho", Phone = "73294605", Ranking = "5", Client_id = "NIKE-9002563" }};*/
         }
 
-        public Client UpdateClient(string client_id, Client clientToUpdate)
+        public Client UpdateClient(string code, Client clientToUpdate)
         {
             Client client = null;
             for (int i = 0; i < Clients.Count; i++)
             {
-                if (Clients[i].Code == client_id)
+                if (Clients[i].Code == code)
                 {
                     Clients[i] = clientToUpdate;
                     client = clientToUpdate;
@@ -41,12 +40,12 @@ namespace CDM_CLIENTS.Database
             return client;
         }
 
-        public Client DeleteClient(string client_id)
+        public Client DeleteClient(string code)
         {
             Client client = null;
             for (int i = 0; i < Clients.Count; i++)
             {
-                if (Clients[i].Code == client_id)
+                if (Clients[i].Code == code)
                 {
                     client = Clients[i];
                     Clients.RemoveAt(i);   

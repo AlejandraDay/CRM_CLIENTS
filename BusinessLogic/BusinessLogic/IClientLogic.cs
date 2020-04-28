@@ -8,9 +8,9 @@ namespace CDM_CLIENTS.BusinessLogic
 {
     public interface IClientLogic
     {
-        public ClientDTO AddNewClient(ClientDTO newClient);
-        public List<ClientDTO> GetClients();
-        public Client UpdateClient(string client_id, ClientDTO clientToUpdate);
-        public Client DeleteClient(string client_id);
+        public Client AddNewClient(ClientDTO newClient);
+        public List<Client> GetClients();
+        public Client UpdateClient(string code, ClientDTO clientToUpdate);
+        public Client DeleteClient(string code);
     }
 }
