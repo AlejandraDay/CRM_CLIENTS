@@ -6,6 +6,9 @@ using CDM_CLIENTS.Database;
 using CDM_CLIENTS.Database.Models;
 using CDM_CLIENTS.DTOModels;
 
+using Serilog;
+using Microsoft.Extensions.Logging;
+
 namespace CDM_CLIENTS.BusinessLogic
 {
     public class RankingLogic : IRankingLogic
@@ -15,6 +18,8 @@ namespace CDM_CLIENTS.BusinessLogic
         public RankingLogic(IClientTableDB clientTableDB)
         {
             _clientTableDB = clientTableDB;
+           // Log.Logger.Information(" => App is using a BUSINESS LOGIC - Ranking ");
+
         }
 
         public List<RankingDTO> GetRankings()
@@ -59,7 +64,8 @@ namespace CDM_CLIENTS.BusinessLogic
                     Ci = client.Ci,
                     Address = client.Address,
                     Phone = client.Phone,
-                    Ranking = client.Ranking
+                    Ranking = client.Ranking,
+                    Code = client.Code
                 });
             }
         }
