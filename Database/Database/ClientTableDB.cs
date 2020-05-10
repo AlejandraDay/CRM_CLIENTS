@@ -1,57 +1,98 @@
 ﻿using CDM_CLIENTS.Database.Models;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace CDM_CLIENTS.Database
 {
     public class ClientTableDB:IClientTableDB
     {
-        private List<Client> Clients { get; set; }
+        private readonly IConfiguration _configuration;
+        private string _dbPath;
+        private List<Client> _clientList;
+        private DBContext _dbContext;
 
-        public ClientTableDB()
+        public ClientTableDB(IConfiguration configuration)
         {
-            Clients = new List<Client>(); 
+            _configuration = configuration;
+            InitDBContext();
+        }
+
+        public void InitDBContext()
+        {
+            _dbPath = _configuration.GetSection("Database").GetSection("connectionString").Value;
+
+            _dbContext = JsonConvert.DeserializeObject<DBContext>(File.ReadAllText(_dbPath));
+
+            _clientList = _dbContext.Client;
+        }
+
+        public void SaveChanges()
+        {
+            File.WriteAllText(_dbPath, JsonConvert.SerializeObject(_dbContext));
         }
 
         public Client AddNewClient(Client newClient)
         {
-            Clients.Add(newClient);
+            _clientList.Add(newClient);
+            SaveChanges();
             return newClient;
         }
 
         public List<Client> GetAll()
         {
-            return Clients;
+            return _clientList;
         }
 
         public Client UpdateClient(string code, Client clientToUpdate)
         {
-            Client client = null;
-            for (int i = 0; i < Clients.Count; i++)
+            Client clientFound = _clientList.Find(client => client.Code == code);
+            if(clientFound != null)
             {
-                if (Clients[i].Code == code)
+                if(string.IsNullOrEmpty(clientToUpdate.Name))
                 {
-                    Clients[i] = clientToUpdate;
-                    client = clientToUpdate;
+                    clientToUpdate.Name = clientFound.Name;
+                }else{
+                    clientFound.Name = clientToUpdate.Name;
+                }
+                if(string.IsNullOrEmpty(clientToUpdate.Ci))
+                {
+                    clientToUpdate.Ci = clientFound.Ci;
+                }else{
+                    clientFound.Ci = clientToUpdate.Ci;
+                }
+                if(string.IsNullOrEmpty(clientToUpdate.Address))
+                {
+                    clientToUpdate.Address = clientFound.Address;
+                }else{
+                    clientFound.Address = clientToUpdate.Address;
+                }
+                if(string.IsNullOrEmpty(clientToUpdate.Phone))
+                {
+                    clientToUpdate.Phone = clientFound.Phone;
+                }else{
+                    clientFound.Phone = clientToUpdate.Phone;
+                }
+                if(string.IsNullOrEmpty(clientToUpdate.Ranking))
+                {
+                    clientToUpdate.Ranking = clientFound.Ranking;
+                }else{
+                    clientFound.Ranking = clientToUpdate.Ranking;
                 }
             }
-            return client;
+            SaveChanges();
+            return clientFound;
         }
 
-        public Client DeleteClient(string code)
+        public bool DeleteClient(string code)
         {
-            Client client = null;
-            for (int i = 0; i < Clients.Count; i++)
-            {
-                if (Clients[i].Code == code)
-                {
-                    client = Clients[i];
-                    Clients.RemoveAt(i);   
-                }
-            }
-            return client;
+            Client clientFound = _clientList.Find(client => client.Code == code);
+            bool wasRemoved = _clientList.Remove(clientFound);
+            SaveChanges();
+            return wasRemoved;
         }
     }
 }

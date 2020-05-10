@@ -42,6 +42,15 @@ namespace CDM_CLIENTS
 
             services.AddTransient<IRankingLogic, RankingLogic>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder => builder.WithOrigins("*")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod()
+                                      );
+            });
+
             var swaggerTitle = Configuration
                 .GetSection(SWAGGER_SECTION_SETTING_KEY)
                 .GetSection(SWAGGER_SECTION_SETTING_TITLE_KEY);

@@ -16,44 +16,43 @@ namespace CDM_CLIENTS.BusinessLogic
             _clientTableDB = clientTableDB;
         }
 
-        public Client AddNewClient(ClientDTO newClient)
+        public ClientDTO AddNewClient(ClientDTO newClient)
         {
             // Mappers => function: client.FromDTOtoEntity
             Client client = new Client()
             {
                 Name = newClient.Name,
                 Ci = newClient.Ci,
-                Adress = newClient.Adress,
+                Address = newClient.Address,
                 Phone = newClient.Phone,
                 Ranking = newClient.Ranking,
                 Code = Letras(newClient.Name) + "-" + newClient.Ci
             };
 
             // Add to DB
-            return _clientTableDB.AddNewClient(client);
+            return DTOUtil.MapClientDTO(_clientTableDB.AddNewClient(client));
         }
 
-        public List<Client> GetClients()
+        public List<ClientDTO> GetClients()
         {
             //return _clientTableDB.GetAll();
-            return _clientTableDB.GetAll();
+            return DTOUtil.MapClientDTOList(_clientTableDB.GetAll());
         }
 
-        public Client UpdateClient(string code, ClientDTO clientToUpdate)
+        public ClientDTO UpdateClient(string code, ClientDTO clientToUpdate)
         {
             Client client = new Client()
             {
                 Name = clientToUpdate.Name,
                 Ci = clientToUpdate.Ci,
-                Adress = clientToUpdate.Adress,
+                Address = clientToUpdate.Address,
                 Phone = clientToUpdate.Phone,
-                Ranking = clientToUpdate.Ranking,
-                Code = Letras(clientToUpdate.Name) + "-" + clientToUpdate.Ci
+                Ranking = clientToUpdate.Ranking
             };
-            return _clientTableDB.UpdateClient(code, client);
+            return DTOUtil.MapClientDTO(_clientTableDB.UpdateClient(code, client));
         }
 
-        public Client DeleteClient(string code)
+        public bool DeleteClient(string code)
         {
             return _clientTableDB.DeleteClient(code);
         }
