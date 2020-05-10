@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CDM_CLIENTS.Database
 {
-    public interface IClientTableDB
+    public interface IClientTableDB: IDBManager
     {
         public Client AddNewClient(Client newClient);
         public List<Client> GetAll();
