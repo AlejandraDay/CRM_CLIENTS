@@ -65,12 +65,14 @@ namespace CDM_CLIENTS.Database
                     clientToUpdate.Name = clientFound.Name;
                 }else{
                     clientFound.Name = clientToUpdate.Name;
+                    clientFound.Code= clientToUpdate.Code;
                 }
                 if(string.IsNullOrEmpty(clientToUpdate.Ci))
                 {
                     clientToUpdate.Ci = clientFound.Ci;
                 }else{
                     clientFound.Ci = clientToUpdate.Ci;
+                    clientFound.Code = clientToUpdate.Code;
                 }
                 if(string.IsNullOrEmpty(clientToUpdate.Address))
                 {
@@ -89,6 +91,9 @@ namespace CDM_CLIENTS.Database
                     clientToUpdate.Ranking = clientFound.Ranking;
                 }else{
                     clientFound.Ranking = clientToUpdate.Ranking;
+                }
+                if(string.IsNullOrEmpty(clientToUpdate.Code)){
+                    clientToUpdate.Code = clientFound.Code;
                 }
             }
             SaveChanges();
