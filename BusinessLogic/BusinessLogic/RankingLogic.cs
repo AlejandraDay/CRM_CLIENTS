@@ -57,7 +57,7 @@ namespace CDM_CLIENTS.BusinessLogic
                 {
                     Name = client.Name,
                     Ci = client.Ci,
-                    Adress = client.Adress,
+                    Address = client.Address,
                     Phone = client.Phone,
                     Ranking = client.Ranking
                 });

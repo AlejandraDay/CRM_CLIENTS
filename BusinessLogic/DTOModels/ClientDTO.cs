@@ -9,8 +9,9 @@ namespace CDM_CLIENTS.DTOModels
     {
         public string Name { get; set; }
         public string Ci { get; set; }
-        public string Adress { get; set; }
+        public string Address { get; set; }
         public string Phone { get; set; }
         public string Ranking { get; set; }
+        public string Code { get; set; }
     }
 }

@@ -49,32 +49,50 @@ namespace CDM_CLIENTS.Database
 
         public Client UpdateClient(string code, Client clientToUpdate)
         {
-            Client client = null;
-            for (int i = 0; i < _clientList.Count; i++)
+            Client clientFound = _clientList.Find(client => client.Code == code);
+            if(clientFound != null)
             {
-                if (_clientList[i].Code == code)
+                if(string.IsNullOrEmpty(clientToUpdate.Name))
                 {
-                    _clientList[i] = clientToUpdate;
-                    client = clientToUpdate;
+                    clientToUpdate.Name = clientFound.Name;
+                }else{
+                    clientFound.Name = clientToUpdate.Name;
+                }
+                if(string.IsNullOrEmpty(clientToUpdate.Ci))
+                {
+                    clientToUpdate.Ci = clientFound.Ci;
+                }else{
+                    clientFound.Ci = clientToUpdate.Ci;
+                }
+                if(string.IsNullOrEmpty(clientToUpdate.Address))
+                {
+                    clientToUpdate.Address = clientFound.Address;
+                }else{
+                    clientFound.Address = clientToUpdate.Address;
+                }
+                if(string.IsNullOrEmpty(clientToUpdate.Phone))
+                {
+                    clientToUpdate.Phone = clientFound.Phone;
+                }else{
+                    clientFound.Phone = clientToUpdate.Phone;
+                }
+                if(string.IsNullOrEmpty(clientToUpdate.Ranking))
+                {
+                    clientToUpdate.Ranking = clientFound.Ranking;
+                }else{
+                    clientFound.Ranking = clientToUpdate.Ranking;
                 }
             }
             SaveChanges();
-            return client;
+            return clientFound;
         }
 
-        public Client DeleteClient(string code)
+        public bool DeleteClient(string code)
         {
-            Client client = null;
-            for (int i = 0; i < _clientList.Count; i++)
-            {
-                if (_clientList[i].Code == code)
-                {
-                    client = _clientList[i];
-                    _clientList.RemoveAt(i);   
-                }
-            }
+            Client clientFound = _clientList.Find(client => client.Code == code);
+            bool wasRemoved = _clientList.Remove(clientFound);
             SaveChanges();
-            return client;
+            return wasRemoved;
         }
     }
 }

@@ -11,6 +11,6 @@ namespace CDM_CLIENTS.Database
         public Client AddNewClient(Client newClient);
         public List<Client> GetAll();
         public Client UpdateClient(string client_id, Client clientToUpdate);
-        public Client DeleteClient(string client_id);
+        public bool DeleteClient(string client_id);
     }
 }
