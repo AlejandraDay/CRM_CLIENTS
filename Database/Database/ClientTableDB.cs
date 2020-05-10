@@ -6,11 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 
+using Microsoft.Extensions.Logging;
+using Serilog;
+
 namespace CDM_CLIENTS.Database
 {
     public class ClientTableDB:IClientTableDB
     {
         private readonly IConfiguration _configuration;
+
+        public readonly ILogger<ClientTableDB> _logger;
         private string _dbPath;
         private List<Client> _clientList;
         private DBContext _dbContext;
@@ -18,12 +23,15 @@ namespace CDM_CLIENTS.Database
         public ClientTableDB(IConfiguration configuration)
         {
             _configuration = configuration;
+
             InitDBContext();
         }
 
         public void InitDBContext()
         {
             _dbPath = _configuration.GetSection("Database").GetSection("connectionString").Value;
+
+            Log.Logger.Information("  => App is using a DATABASE -> path : " + _dbPath);
 
             _dbContext = JsonConvert.DeserializeObject<DBContext>(File.ReadAllText(_dbPath));
 
