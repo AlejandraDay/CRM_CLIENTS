@@ -64,18 +64,18 @@ namespace CDM_CLIENTS.BusinessLogic
             return _clientTableDB.DeleteClient(code);
         }
 
-        public string GenerateCodeLetters(string nombre)
+       public string GenerateCodeLetters(string nombre)
         {
             string letters = "";
             string[] allwords = nombre.Split(' ');
             
             foreach (var word in allwords)
             {
-                if( (!string.IsNullOrEmpty(word)) && char.IsLetter(word.ToCharArray() [0] ))//&& !word.Contains("[1-9]")
+                if( !string.IsNullOrEmpty(word) && !word.Contains("[1-9]") )
                     letters = letters + (word.ToCharArray() [0]);
             }
-
-            return letters.ToUpper();
+            
+            return letters.ToUpper() ;
         }
     }
 }
