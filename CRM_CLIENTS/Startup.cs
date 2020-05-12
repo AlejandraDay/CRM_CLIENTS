@@ -13,6 +13,9 @@ using Microsoft.Extensions.Logging;
 using CDM_CLIENTS.BusinessLogic;
 using CDM_CLIENTS.Database;
 
+using Serilog;
+using Serilog.Events;
+
 namespace CDM_CLIENTS
 {
     public class Startup
@@ -28,6 +31,19 @@ namespace CDM_CLIENTS
                 .AddEnvironmentVariables();
             
             Configuration = builder.Build();
+
+            string logpath = Configuration.GetSection("Logging").GetSection("FileLocation").Value;
+
+            Log.Logger = new LoggerConfiguration()
+            //Instances 
+                .MinimumLevel 
+                .Information()
+                .WriteTo.Console()
+                .WriteTo.RollingFile(logpath, LogEventLevel.Information)
+                .CreateLogger();
+
+            Log.Information("-The App is using the CONFIGURATION FILE  :  " + $"appsettings.{env.EnvironmentName}.json");
+       
         }
 
         public IConfiguration Configuration { get; }
