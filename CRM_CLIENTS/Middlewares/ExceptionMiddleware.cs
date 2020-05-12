@@ -33,10 +33,10 @@ namespace CRM_CLIENTS.Middlewares
         private static int getCode(Exception ex)
         {
             int code = 500;
-            if (ex.GetType() == typeof(NameAlreadyExists))
-                code = ((NameAlreadyExists)ex).Code;
-            if (ex.GetType() == typeof(NameInvalid))
-                code = ((NameInvalid)ex).Code;
+            if (ex.GetType() == typeof(CodeDoesNotExist))
+                code = ((CodeDoesNotExist)ex).Code;
+            if (ex.GetType() == typeof(CodeAlreadyExists))
+                code = ((CodeAlreadyExists)ex).Code;
             return code;
         }
 
