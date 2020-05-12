@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Text;
 using BusinessLogic.BusinessLogic;
 
+using Serilog;
+using Microsoft.Extensions.Logging;
+
 namespace CDM_CLIENTS.BusinessLogic
 {
     public class ClientLogic : IClientLogic
@@ -15,6 +18,8 @@ namespace CDM_CLIENTS.BusinessLogic
         public ClientLogic(IClientTableDB clientTableDB)
         {
             _clientTableDB = clientTableDB;
+            //Log.Logger.Information(" => App is using a BUSINESS LOGIC - Client ");
+
         }
 
         public ClientDTO AddNewClient(ClientDTO newClient)
@@ -28,8 +33,10 @@ namespace CDM_CLIENTS.BusinessLogic
                 Address = newClient.Address,
                 Phone = newClient.Phone,
                 Ranking = newClient.Ranking,
-                Code = Letras(newClient.Name) + "-" + newClient.Ci
 
+                
+
+                Code = GenerateCodeLetters(newClient.Name) + "-" + newClient.Ci
             };
 
             if (client.Code != null)
@@ -62,7 +69,9 @@ namespace CDM_CLIENTS.BusinessLogic
                 Ci = clientToUpdate.Ci,
                 Address = clientToUpdate.Address,
                 Phone = clientToUpdate.Phone,
-                Ranking = clientToUpdate.Ranking
+                Ranking = clientToUpdate.Ranking,
+                Code = GenerateCodeLetters(clientToUpdate.Name) + "-" + clientToUpdate.Ci
+
             };
 
             // Add to DB
@@ -75,21 +84,18 @@ namespace CDM_CLIENTS.BusinessLogic
             return _clientTableDB.DeleteClient(code);
         }
 
-        public string Letras(string nombre)
+        public string GenerateCodeLetters(string nombre)
         {
-            string Letras = "";
-            char[] Cut = new char[nombre.Length];
-
-            Cut = nombre.ToCharArray();
-
-            foreach (char c in Cut)
+            string letters = "";
+            string[] allwords = nombre.Split(' ');
+            
+            foreach (var word in allwords)
             {
-                if (char.IsUpper(c))
-                {
-                    Letras = Letras + c;
-                }
+                if( (!string.IsNullOrEmpty(word)) && char.IsLetter(word.ToCharArray() [0]))//!word.Contains("[1-9]") )))
+                    letters = letters + (word.ToCharArray() [0]);
             }
-            return Letras;
+
+            return letters.ToUpper();
         }
     }
 }
