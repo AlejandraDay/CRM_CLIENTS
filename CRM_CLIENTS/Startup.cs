@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using CDM_CLIENTS.BusinessLogic;
 using CDM_CLIENTS.Database;
+using CRM_CLIENTS.Middlewares;
 
 namespace CDM_CLIENTS
 {
@@ -96,6 +97,9 @@ namespace CDM_CLIENTS
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Clients CRUD");
             });
+
+            // Middlewares
+            app.UseMiddleware(typeof(ExceptionMiddleware));
         }
     }
 }
