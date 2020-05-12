@@ -97,9 +97,14 @@ namespace CDM_CLIENTS
                 app.UseDeveloperExceptionPage();
             }
 
+            // Middlewares
+            app.UseMiddleware(typeof(ExceptionMiddleware));
+
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 
@@ -114,8 +119,7 @@ namespace CDM_CLIENTS
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Clients CRUD");
             });
 
-            // Middlewares
-            app.UseMiddleware(typeof(ExceptionMiddleware));
+            
         }
     }
 }
