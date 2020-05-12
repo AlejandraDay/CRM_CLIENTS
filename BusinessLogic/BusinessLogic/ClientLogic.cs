@@ -4,7 +4,7 @@ using CDM_CLIENTS.DTOModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using BusinessLogic.BusinessLogic.Exceptions;
+using BusinessLogic.BusinessLogic;
 
 namespace CDM_CLIENTS.BusinessLogic
 {
@@ -32,22 +32,16 @@ namespace CDM_CLIENTS.BusinessLogic
 
             };
 
-            if (Code != null)
+            if (client.Code != null)
             {
-                throw new NameAlreadyExists("Name already exists.");
+                throw new NameInvalid("Code invalid.");
             }
 
-            try
-            {
-                // Add to DB
-                return DTOUtil.MapClientDTO(_clientTableDB.AddNewClient(client));
-            }
+            // Add to DB
+            return DTOUtil.MapClientDTO(_clientTableDB.AddNewClient(client));
 
-            catch (NameAlreadyExists qd)
-            {
-                throw qd;
-            }
         }
+
 
         public List<ClientDTO> GetClients()
         {
@@ -57,6 +51,10 @@ namespace CDM_CLIENTS.BusinessLogic
 
         public ClientDTO UpdateClient(string code, ClientDTO clientToUpdate)
         {
+            if (code != null)
+            {
+                throw new NameAlreadyExists("Name already exists.");
+            }
 
             Client client = new Client()
             {
@@ -67,22 +65,9 @@ namespace CDM_CLIENTS.BusinessLogic
                 Ranking = clientToUpdate.Ranking
             };
 
-            if (code != null)
-            {
-                throw new NameAlreadyExists("Name already exists.");
-            }
+            // Add to DB
+            return DTOUtil.MapClientDTO(_clientTableDB.UpdateClient(code, client));
 
-            try
-            {
-                // Add to DB
-                return DTOUtil.MapClientDTO(_clientTableDB.UpdateClient(code, client));
-            }
-
-            catch (NameAlreadyExists qd)
-            {
-                throw qd;
-            }
-            
         }
 
         public bool DeleteClient(string code)

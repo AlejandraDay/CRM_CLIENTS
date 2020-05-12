@@ -4,8 +4,7 @@ using System.Text;
 
 namespace BusinessLogic.BusinessLogic
 {
-    class Exceptions
-    {
+    
         public class NameInvalid : Exception
         {
             //406 not acceptable
@@ -23,4 +22,4 @@ namespace BusinessLogic.BusinessLogic
         }
      
     }
-}
+
