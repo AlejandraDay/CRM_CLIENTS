@@ -5,20 +5,20 @@ using System.Text;
 namespace BusinessLogic.BusinessLogic
 {
     
-        public class NameInvalid : Exception
+        public class CodeDoesNotExist : Exception
         {
-            //406 not acceptable
-            public int Code { get { return 406; } }
+            //400 not acceptable
+            public int Code { get { return 400; } }
 
-            public NameInvalid(string message) : base(message) { }
+            public CodeDoesNotExist(string message) : base(message) { }
         }
 
         
-        public class NameAlreadyExists : Exception
+        public class CodeAlreadyExists : Exception
         {
-            //500 internal server error
-            public int Code { get { return 500; } }
-            public NameAlreadyExists(string message) : base(message) { }
+            //400 internal server error
+            public int Code { get { return 406; } }
+            public CodeAlreadyExists(string message) : base(message) { }
         }
      
     }

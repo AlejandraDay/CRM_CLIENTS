@@ -34,14 +34,17 @@ namespace CDM_CLIENTS.BusinessLogic
                 Phone = newClient.Phone,
                 Ranking = newClient.Ranking,
 
-                
+
 
                 Code = GenerateCodeLetters(newClient.Name) + "-" + newClient.Ci
             };
 
-            if (client.Code != null)
+            List<ClientDTO> tmp = DTOUtil.MapClientDTOList(_clientTableDB.GetAll());
+            ClientDTO tmp_client = tmp.Find(x => x.Code.Contains(client.Code));
+            Console.WriteLine(tmp_client.Name + tmp_client.Code);
+            if (tmp_client != null)
             {
-                throw new NameInvalid("Code invalid.");
+                throw new CodeAlreadyExists("Invalid code, it already exists, please enter another one");
             }
 
             // Add to DB
@@ -58,9 +61,13 @@ namespace CDM_CLIENTS.BusinessLogic
 
         public ClientDTO UpdateClient(string code, ClientDTO clientToUpdate)
         {
-            if (code != null)
+            Console.WriteLine(code + "code in update");
+
+            List<ClientDTO> tmp_list = DTOUtil.MapClientDTOList(_clientTableDB.GetAll());
+            ClientDTO tmp_client = tmp_list.Find(x => x.Code.Contains(code));
+            if (tmp_client == null)
             {
-                throw new NameAlreadyExists("Name already exists.");
+                throw new CodeDoesNotExist("Couldn't find code, please enter a valid code");
             }
 
             Client client = new Client()
@@ -74,13 +81,19 @@ namespace CDM_CLIENTS.BusinessLogic
 
             };
 
-            // Add to DB
+
             return DTOUtil.MapClientDTO(_clientTableDB.UpdateClient(code, client));
 
         }
 
         public bool DeleteClient(string code)
         {
+            List < ClientDTO > tmp_list = DTOUtil.MapClientDTOList(_clientTableDB.GetAll());
+            ClientDTO tmp_client = tmp_list.Find(x => x.Code.Contains(code));
+            if (tmp_client == null)
+            {
+                throw new CodeDoesNotExist("Couldn't find code, please enter a valid code");
+            }
             return _clientTableDB.DeleteClient(code);
         }
 
@@ -88,11 +101,11 @@ namespace CDM_CLIENTS.BusinessLogic
         {
             string letters = "";
             string[] allwords = nombre.Split(' ');
-            
+
             foreach (var word in allwords)
             {
-                if( (!string.IsNullOrEmpty(word)) && char.IsLetter(word.ToCharArray() [0]))//!word.Contains("[1-9]") )))
-                    letters = letters + (word.ToCharArray() [0]);
+                if ((!string.IsNullOrEmpty(word)) && char.IsLetter(word.ToCharArray()[0]))//!word.Contains("[1-9]") )))
+                    letters = letters + (word.ToCharArray()[0]);
             }
 
             return letters.ToUpper();
