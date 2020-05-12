@@ -82,7 +82,7 @@ namespace CDM_CLIENTS.Database
                         clientFound.Code = clientFound.Code.Split('-') [0] + "-" + clientToUpdate.Ci;
                         clientFound.Ci = clientToUpdate.Ci;
                 } 
-                else
+                else if((!string.IsNullOrEmpty(clientToUpdate.Ci)) && (!string.IsNullOrEmpty(clientToUpdate.Name)))
                 {
                     clientFound.Code = clientToUpdate.Code;
                     clientFound.Name = clientToUpdate.Name;
