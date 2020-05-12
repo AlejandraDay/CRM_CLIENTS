@@ -4,7 +4,7 @@ using CDM_CLIENTS.DTOModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using BusinessLogic.BusinessLogic;
+using BusinessLogic.Exceptions;
 
 using Serilog;
 using Microsoft.Extensions.Logging;
@@ -24,7 +24,23 @@ namespace CDM_CLIENTS.BusinessLogic
 
         public ClientDTO AddNewClient(ClientDTO newClient)
         {
+            if(string.IsNullOrEmpty(newClient.Name))
+            {
+                throw new EmptyNameException("The name field must be filled.");
+            }
+            if(string.IsNullOrEmpty(newClient.Ci))
+            {
+                throw new EmptyCiException("The ci field must be filled.");
+            }
+            if(!(string.IsNullOrEmpty(newClient.Ranking)))
+            {
+                if(System.Convert.ToInt32(newClient.Ranking) < 0 || System.Convert.ToInt32(newClient.Ranking) > 5)
+                {
+                    throw new RankingOutOfBoundException("Ranking must be between 0 and 5.");
+                }
 
+            }
+            
             // Mappers => function: client.FromDTOtoEntity
             Client client = new Client()
             {
@@ -41,10 +57,9 @@ namespace CDM_CLIENTS.BusinessLogic
 
             List<ClientDTO> tmp = DTOUtil.MapClientDTOList(_clientTableDB.GetAll());
             ClientDTO tmp_client = tmp.Find(x => x.Code.Contains(client.Code));
-            Console.WriteLine(tmp_client.Name + tmp_client.Code);
             if (tmp_client != null)
             {
-                throw new CodeAlreadyExists("Invalid code, it already exists, please enter another one");
+                throw new CodeAlreadyExistsException("Invalid code, it already exists, please enter another one");
             }
 
             // Add to DB
@@ -61,13 +76,20 @@ namespace CDM_CLIENTS.BusinessLogic
 
         public ClientDTO UpdateClient(string code, ClientDTO clientToUpdate)
         {
-            Console.WriteLine(code + "code in update");
+            if(!(string.IsNullOrEmpty(clientToUpdate.Ranking)))
+            {
+                if(clientToUpdate.Ranking != null && (System.Convert.ToInt32(clientToUpdate.Ranking) < 0 || System.Convert.ToInt32(clientToUpdate.Ranking) > 5))
+                {
+                    throw new RankingOutOfBoundException("Ranking must be between 0 and 5.");
+                }
 
+            }
+            
             List<ClientDTO> tmp_list = DTOUtil.MapClientDTOList(_clientTableDB.GetAll());
             ClientDTO tmp_client = tmp_list.Find(x => x.Code.Contains(code));
             if (tmp_client == null)
             {
-                throw new CodeDoesNotExist("Couldn't find code, please enter a valid code");
+                throw new CodeDoesNotExistException("Couldn't find code, please enter a valid code");
             }
 
             Client client = new Client()
@@ -92,7 +114,7 @@ namespace CDM_CLIENTS.BusinessLogic
             ClientDTO tmp_client = tmp_list.Find(x => x.Code.Contains(code));
             if (tmp_client == null)
             {
-                throw new CodeDoesNotExist("Couldn't find code, please enter a valid code");
+                throw new CodeDoesNotExistException("Couldn't find code, please enter a valid code");
             }
             return _clientTableDB.DeleteClient(code);
         }
