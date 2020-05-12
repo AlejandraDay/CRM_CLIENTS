@@ -4,6 +4,7 @@ using CDM_CLIENTS.DTOModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using BusinessLogic.BusinessLogic;
 
 using Serilog;
 using Microsoft.Extensions.Logging;
@@ -23,6 +24,7 @@ namespace CDM_CLIENTS.BusinessLogic
 
         public ClientDTO AddNewClient(ClientDTO newClient)
         {
+
             // Mappers => function: client.FromDTOtoEntity
             Client client = new Client()
             {
@@ -31,12 +33,22 @@ namespace CDM_CLIENTS.BusinessLogic
                 Address = newClient.Address,
                 Phone = newClient.Phone,
                 Ranking = newClient.Ranking,
+
+                
+
                 Code = GenerateCodeLetters(newClient.Name) + "-" + newClient.Ci
             };
 
+            if (client.Code != null)
+            {
+                throw new NameInvalid("Code invalid.");
+            }
+
             // Add to DB
             return DTOUtil.MapClientDTO(_clientTableDB.AddNewClient(client));
+
         }
+
 
         public List<ClientDTO> GetClients()
         {
@@ -46,6 +58,11 @@ namespace CDM_CLIENTS.BusinessLogic
 
         public ClientDTO UpdateClient(string code, ClientDTO clientToUpdate)
         {
+            if (code != null)
+            {
+                throw new NameAlreadyExists("Name already exists.");
+            }
+
             Client client = new Client()
             {
                 Name = clientToUpdate.Name,
@@ -56,7 +73,10 @@ namespace CDM_CLIENTS.BusinessLogic
                 Code = GenerateCodeLetters(clientToUpdate.Name) + "-" + clientToUpdate.Ci
 
             };
+
+            // Add to DB
             return DTOUtil.MapClientDTO(_clientTableDB.UpdateClient(code, client));
+
         }
 
         public bool DeleteClient(string code)
