@@ -4,7 +4,8 @@ using System.Text;
 
 namespace BusinessLogic.BusinessLogic
 {
-    class ILoginLogic
+    public interface ILoginLogic
     {
+        public bool ValidateUser(string user);
     }
 }
