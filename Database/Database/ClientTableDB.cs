@@ -34,14 +34,15 @@ namespace CDM_CLIENTS.Database
             {
                 _dbPath = _configuration.GetSection("Database").GetSection("connectionString").Value;
 
-                Log.Logger.Information("  => App is using a DATABASE -> path : " + _dbPath);
+                Log.Logger.Information(" => App is using a DATABASE -> path : " + _dbPath);
 
                 _dbContext = JsonConvert.DeserializeObject<DBContext>(File.ReadAllText(_dbPath));
 
                 _clientList = _dbContext.Client;
             }
             catch (Exception)
-            {               
+            {       
+                Log.Logger.Error(" => Connection with DATABASE is not working : " + _dbPath);        
                 throw new DatabaseException("Connection with Database is not working!");
             }
         }
@@ -55,6 +56,7 @@ namespace CDM_CLIENTS.Database
         {
             _clientList.Add(newClient);
             SaveChanges();
+            
             return newClient;
         }
 
@@ -110,6 +112,8 @@ namespace CDM_CLIENTS.Database
                 
             }
             SaveChanges();
+            Log.Logger.Information(" => Data for the Client : {0} was modified in the DataBase", clientFound.Code );
+
             return clientFound;
         }
 
@@ -118,6 +122,7 @@ namespace CDM_CLIENTS.Database
             Client clientFound = _clientList.Find(client => client.Code == code);
             bool wasRemoved = _clientList.Remove(clientFound);
             SaveChanges();
+            Log.Logger.Information(" => The Client : {0} has been deleted from the DataBase", code );
             return wasRemoved;
         }
     }

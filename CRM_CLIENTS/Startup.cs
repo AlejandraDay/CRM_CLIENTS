@@ -35,6 +35,13 @@ namespace CDM_CLIENTS
 
             string logpath = Configuration.GetSection("Logging").GetSection("FileLocation").Value;
 
+             Log.Logger  = new  LoggerConfiguration()
+                .MinimumLevel
+                .Error()
+                .WriteTo.Console()
+                .WriteTo.RollingFile(logpath, LogEventLevel.Error)
+                .CreateLogger() ;
+
             Log.Logger = new LoggerConfiguration()
             //Instances 
                 .MinimumLevel 
@@ -42,10 +49,9 @@ namespace CDM_CLIENTS
                 .WriteTo.Console()
                 .WriteTo.RollingFile(logpath, LogEventLevel.Information)
                 .CreateLogger();
-
-            Log.Information("-The App is using the CONFIGURATION FILE  :  " + $"appsettings.{env.EnvironmentName}.json");
-       
-        }
+                            
+            Log.Information("- The App is using the CONFIGURATION FILE  :  " + $"appsettings.{env.EnvironmentName}.json");       
+         }
 
         public IConfiguration Configuration { get; }
 
