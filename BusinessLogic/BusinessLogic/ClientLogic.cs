@@ -106,7 +106,6 @@ namespace CDM_CLIENTS.BusinessLogic
                 Code = GenerateCodeLetters(clientToUpdate.Name) + "-" + clientToUpdate.Ci
             };
 
-            Log.Logger.Information(" => Data for the Client : {0} was modified in the DataBase", code );
             return DTOUtil.MapClientDTO(_clientTableDB.UpdateClient(code, client));
 
         }
@@ -117,11 +116,9 @@ namespace CDM_CLIENTS.BusinessLogic
             ClientDTO tmp_client = tmp_list.Find(x => x.Code.Contains(code));
             if (tmp_client == null)
             {
-                Log.Logger.Error(" =>  [DeleteClient] The App found an ERROR -> The Code is Invalid ");
+                Log.Logger.Error(" => [DeleteClient] The App found an ERROR -> The Code is Invalid ");
                 throw new CodeDoesNotExistException("Couldn't find code, please enter a valid code");
             }
-
-            Log.Logger.Information(" => The Client : {0} has been deleted from the DataBase", code );
 
             return _clientTableDB.DeleteClient(code);
         }

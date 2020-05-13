@@ -56,6 +56,7 @@ namespace CDM_CLIENTS.Database
         {
             _clientList.Add(newClient);
             SaveChanges();
+            
             return newClient;
         }
 
@@ -111,6 +112,8 @@ namespace CDM_CLIENTS.Database
                 
             }
             SaveChanges();
+            Log.Logger.Information(" => Data for the Client : {0} was modified in the DataBase", clientFound.Code );
+
             return clientFound;
         }
 
@@ -119,6 +122,7 @@ namespace CDM_CLIENTS.Database
             Client clientFound = _clientList.Find(client => client.Code == code);
             bool wasRemoved = _clientList.Remove(clientFound);
             SaveChanges();
+            Log.Logger.Information(" => The Client : {0} has been deleted from the DataBase", code );
             return wasRemoved;
         }
     }
