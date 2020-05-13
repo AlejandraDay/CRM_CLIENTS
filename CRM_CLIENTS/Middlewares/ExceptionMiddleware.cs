@@ -29,6 +29,7 @@ namespace CRM_CLIENTS.Middlewares
             catch (Exception ex)
             {
                 await ProcessError(httpContext, ex);
+                
             }
         }
         private static int getCode(Exception ex)
