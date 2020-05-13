@@ -25,6 +25,7 @@ namespace CDM_CLIENTS.Controllers
 
         // GET: api/Client //Read
         [HttpGet]
+        [Route("")]
         public IEnumerable<RankingDTO> GetAll()
         {
             //  return _rankingLogic.
