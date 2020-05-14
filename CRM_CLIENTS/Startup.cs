@@ -12,6 +12,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using CDM_CLIENTS.BusinessLogic;
 using CDM_CLIENTS.Database;
+using CRM_CLIENTS.Middlewares;
+
+using Serilog;
+using Serilog.Events;
 
 namespace CDM_CLIENTS
 {
@@ -28,7 +32,26 @@ namespace CDM_CLIENTS
                 .AddEnvironmentVariables();
             
             Configuration = builder.Build();
-        }
+
+            string logpath = Configuration.GetSection("Logging").GetSection("FileLocation").Value;
+
+             Log.Logger  = new  LoggerConfiguration()
+                .MinimumLevel
+                .Error()
+                .WriteTo.Console()
+                .WriteTo.RollingFile(logpath, LogEventLevel.Error)
+                .CreateLogger() ;
+
+            Log.Logger = new LoggerConfiguration()
+            //Instances 
+                .MinimumLevel 
+                .Information()
+                .WriteTo.Console()
+                .WriteTo.RollingFile(logpath, LogEventLevel.Information)
+                .CreateLogger();
+                            
+            Log.Information("- The App is using the CONFIGURATION FILE  :  " + $"appsettings.{env.EnvironmentName}.json");       
+         }
 
         public IConfiguration Configuration { get; }
 
@@ -41,6 +64,15 @@ namespace CDM_CLIENTS
             services.AddSingleton<IClientTableDB, ClientTableDB>();
 
             services.AddTransient<IRankingLogic, RankingLogic>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder => builder.WithOrigins("*")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod()
+                                      );
+            });
 
             var swaggerTitle = Configuration
                 .GetSection(SWAGGER_SECTION_SETTING_KEY)
@@ -71,9 +103,14 @@ namespace CDM_CLIENTS
                 app.UseDeveloperExceptionPage();
             }
 
+            // Middlewares
+            app.UseMiddleware(typeof(ExceptionMiddleware));
+
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 
@@ -87,6 +124,8 @@ namespace CDM_CLIENTS
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Clients CRUD");
             });
+
+            
         }
     }
 }

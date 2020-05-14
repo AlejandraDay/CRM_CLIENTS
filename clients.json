@@ -1,0 +1,29 @@
+{
+	"Client":
+	[
+		{
+			"Name":"Juan Jose Perez",
+			"Ci":"9876543",
+			"Address":"c/ Pando",
+			"Phone":"67854321",
+			"Ranking":"3",
+			"Code":"JJP-9876543"
+		},
+		{
+			"Name":"Ana Maria Gutierrez",
+			"Ci":"4567891",
+			"Address":"c/ Ballivian",
+			"Phone":"76462201",
+			"Ranking":"5",
+			"Code":"AMG-4567891"
+		},
+		{
+			"Name":"Cecilia Martinez",
+			"Ci":"9876543",
+			"Address":"Av. América",
+			"Phone":"78672725",
+			"Ranking":"4",
+			"Code":"CM-9876543"
+		}
+	]
+}

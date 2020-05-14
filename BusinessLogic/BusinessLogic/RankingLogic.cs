@@ -6,6 +6,9 @@ using CDM_CLIENTS.Database;
 using CDM_CLIENTS.Database.Models;
 using CDM_CLIENTS.DTOModels;
 
+using Serilog;
+using Microsoft.Extensions.Logging;
+
 namespace CDM_CLIENTS.BusinessLogic
 {
     public class RankingLogic : IRankingLogic
@@ -30,6 +33,7 @@ namespace CDM_CLIENTS.BusinessLogic
                 // Asign Cient to a Group
                 assignToRanking(rankingsToAssign, client);
             }
+            Log.Logger.Information(" => The App gets a Client Ranking List " );
 
             return rankingsToAssign;
         }
@@ -57,9 +61,10 @@ namespace CDM_CLIENTS.BusinessLogic
                 {
                     Name = client.Name,
                     Ci = client.Ci,
-                    Adress = client.Adress,
+                    Address = client.Address,
                     Phone = client.Phone,
-                    Ranking = client.Ranking
+                    Ranking = client.Ranking,
+                    Code = client.Code
                 });
             }
         }

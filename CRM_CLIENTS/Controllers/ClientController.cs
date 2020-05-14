@@ -16,35 +16,25 @@ namespace CDM_CLIENTS.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private ILogger _logger;
         private readonly IClientLogic _clientLogic;
-        private readonly IConfiguration _configuration;
 
-        public ClientController(ILogger<ClientController> logger, IClientLogic clientLogic, IConfiguration config)
+        public ClientController(IClientLogic clientLogic)
         {
-            _logger = logger;
             _clientLogic = clientLogic;
-            _configuration = config;
         }
 
         // POST (CREATE)
         [HttpPost]
         [Route("clients")]
-        public ActionResult<Client> AddProduct([FromBody]ClientDTO newClientdto)
+        public ClientDTO AddProduct([FromBody]ClientDTO newClientdto)
         {
-            Client newClient = _clientLogic.AddNewClient(newClientdto);
-
-            var dbServer = _configuration.GetSection("Database").GetSection("ConnectionString");
-
-            newClient.Name = $"{newClient.Name} <- data from {dbServer.Value}";
-
-            return newClient;
+            return _clientLogic.AddNewClient(newClientdto);
         }
 
         // GET (READ)
         [HttpGet]
         [Route("clients")]
-        public ActionResult<List<Client>> GetClients()
+        public ActionResult<List<ClientDTO>> GetClients()
         {
             return _clientLogic.GetClients();
         }
@@ -54,7 +44,7 @@ namespace CDM_CLIENTS.Controllers
         // PUT (UPDATE)
         [HttpPut]
         [Route("clients/{code}")]
-        public ActionResult<Client> UpdateProduct(string code, [FromBody]ClientDTO clientToUpdate)
+        public ActionResult<ClientDTO> UpdateProduct(string code, [FromBody]ClientDTO clientToUpdate)
         {
             return _clientLogic.UpdateClient(code, clientToUpdate);
         }
@@ -62,7 +52,7 @@ namespace CDM_CLIENTS.Controllers
         // DELETE (DELETE)
         [HttpDelete]
         [Route("clients/{code}")]
-        public ActionResult<Client> DeleteProduct(string code)
+        public bool DeleteProduct(string code)
         {
             return _clientLogic.DeleteClient(code);
         }
