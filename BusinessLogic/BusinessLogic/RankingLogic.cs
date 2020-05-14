@@ -18,8 +18,6 @@ namespace CDM_CLIENTS.BusinessLogic
         public RankingLogic(IClientTableDB clientTableDB)
         {
             _clientTableDB = clientTableDB;
-           // Log.Logger.Information(" => App is using a BUSINESS LOGIC - Ranking ");
-
         }
 
         public List<RankingDTO> GetRankings()
@@ -35,6 +33,7 @@ namespace CDM_CLIENTS.BusinessLogic
                 // Asign Cient to a Group
                 assignToRanking(rankingsToAssign, client);
             }
+            Log.Logger.Information(" => The App gets a Client Ranking List " );
 
             return rankingsToAssign;
         }

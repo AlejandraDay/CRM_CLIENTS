@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using BusinessLogic.BusinessLogic;
+using BusinessLogic.Exceptions;
+using CDM_CLIENTS.Database.Exceptions;
 using Newtonsoft.Json;
 
 namespace CRM_CLIENTS.Middlewares
@@ -28,15 +29,24 @@ namespace CRM_CLIENTS.Middlewares
             catch (Exception ex)
             {
                 await ProcessError(httpContext, ex);
+                
             }
         }
         private static int getCode(Exception ex)
         {
             int code = 500;
-            if (ex.GetType() == typeof(CodeDoesNotExist))
-                code = ((CodeDoesNotExist)ex).Code;
-            if (ex.GetType() == typeof(CodeAlreadyExists))
-                code = ((CodeAlreadyExists)ex).Code;
+            if (ex.GetType() == typeof(CodeDoesNotExistException))
+                code = ((CodeDoesNotExistException)ex).Code;
+            if (ex.GetType() == typeof(CodeAlreadyExistsException))
+                code = ((CodeAlreadyExistsException)ex).Code;
+            if (ex.GetType() == typeof(DatabaseException))
+                code = ((DatabaseException)ex).Code;
+            if (ex.GetType() == typeof(EmptyNameException))
+                code = ((EmptyNameException)ex).Code;
+            if (ex.GetType() == typeof(EmptyCiException))
+                code = ((EmptyCiException)ex).Code;
+            if (ex.GetType() == typeof(RankingOutOfBoundException))
+                code = ((RankingOutOfBoundException)ex).Code;
             return code;
         }
 
